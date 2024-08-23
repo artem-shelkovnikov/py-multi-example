@@ -1,0 +1,24 @@
+[project]
+name = "connectors_cli"
+version = "0.1.0"
+description = "Connectors cli in a nutshell"
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "ruff>=0.6.1",
+    "connectors"
+]
+
+[project.scripts]
+connectors_cli = "connectors_cli.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+dev-mode-dirs = ["src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/connectors_cli"]
+sources = ["src"]

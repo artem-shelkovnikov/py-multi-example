@@ -1,0 +1,20 @@
+.venv
+include
+.coverage
+*.un~
+*.swp
+pyvenv.cfg
+*.egg-info
+__pycache__
+
+# real configurations
+config.yml
+
+# jetbrains files
+.idea
+*.iml
+.cli
+
+**/build/**
+**/dist/**
+**/venv
