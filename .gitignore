@@ -1,4 +1,6 @@
-.venv
+lib
+lib64
+dist
 include
 .coverage
 *.un~
@@ -15,6 +17,10 @@ config.yml
 *.iml
 .cli
 
-**/build/**
-**/dist/**
+.venv
 **/venv
+scripts/stack/connectors-config
+
+**/dish
+
+.python-version
