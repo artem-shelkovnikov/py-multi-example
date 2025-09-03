@@ -22,5 +22,6 @@ config.yml
 scripts/stack/connectors-config
 
 **/dish
+**/.egg-info
 
 .python-version
