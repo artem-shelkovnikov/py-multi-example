@@ -1,4 +1,4 @@
-from connectors.helpers.chatting import say_something_in_connectors
+from connectors_sdk.helpers.chatting import say_something_in_connectors
 
 def main():
     print("QQQQQQ")

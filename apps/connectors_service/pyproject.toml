@@ -5,8 +5,15 @@ description = "Connectors service in a nutshell"
 readme = "README.md"
 requires-python = ">=3.10,<3.12"
 dependencies = [
+    "connectors",
+    "click>=8.1.0",
+    "asyncio"
+]
+
+[project.optional-dependencies]
+dev = [
     "ruff>=0.6.1",
-    "connectors"
+    "pytest"
 ]
 
 [project.scripts]

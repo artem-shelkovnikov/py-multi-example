@@ -1,40 +1,29 @@
 PYTHON?=python3
 
-.venv/bin/python:
-	$(PYTHON) -m venv .venv
-	.venv/bin/pip install --upgrade pip
-	.venv/bin/pip install --upgrade build
+init_venv:
+	uv venv --allow-existing
 
-.venv/bin/connectors_service:
-	.venv/bin/pip install -r libraries/connectors/requirements/lib.txt
-	.venv/bin/pip install --editable libraries/connectors
-	.venv/bin/pip install -r apps/connectors_service/requirements/app.txt
-	.venv/bin/pip install --editable apps/connectors_service
+.venv: init_venv
+	uv pip install -e \
+		libraries/connectors_sdk \
+		libraries/elastic_connectors \
+		libraries/external_contribution_connector \
+		apps/connectors_service \
+		apps/connectors_cli \
+		apps/connectors_agent_component
 
-.venv/bin/connectors_cli:
-	.venv/bin/pip install -r libraries/connectors/requirements/lib.txt
-	.venv/bin/pip install --editable libraries/connectors
-	.venv/bin/pip install -r apps/connectors_cli/requirements/app.txt
-	.venv/bin/pip install --editable apps/connectors_cli
-
-.venv/bin/connectors_agent_component:
-	.venv/bin/pip install -r libraries/connectors/requirements/lib.txt
-	.venv/bin/pip install --editable libraries/connectors
-	.venv/bin/pip install -r apps/connectors_agent_component/requirements/app.txt
-	.venv/bin/pip install --editable apps/connectors_agent_component 
-
-install: .venv/bin/python .venv/bin/connectors_service .venv/bin/connectors_agent_component
+install: .venv 
 
 clean:
-	rm -rf .venv include elasticsearch_connector.egg-info .coverage site-packages pyvenv.cfg include.site.python*.greenlet
+	rm -rf .venv include .coverage site-packages pyvenv.cfg include.site.python*.greenlet
 
-agent: .venv/bin/python .venv/bin/connectors_agent_component
+agent: .venv
 	.venv/bin/connectors_agent_component
 
-cli: .venv/bin/python .venv/bin/connectors_cli
-	.venv/bin/connectors_cli
+cli: .venv
+	.venv/bin/connectors_cli run
 
-run: .venv/bin/python .venv/bin/connectors_service .venv/bin/connectors_cli .venv/bin/connectors_agent_component
+service: 
 	.venv/bin/connectors_service
-	.venv/bin/connectors_cli
-	.venv/bin/connectors_agent_component
+
+run: agent cli service

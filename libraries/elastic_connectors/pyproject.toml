@@ -1,10 +1,10 @@
 [project]
-name = "connectors"
+name = "elastic-connectors"
 version = "0.1.0"
 authors = [
   { name="Artem Shelkovnikov", email="artem.shelkovikov@elastic.co" },
 ]
-description = "Connectors in a nutshell"
+description = "Specific Implementation of Elastic Connectors"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -13,7 +13,14 @@ classifiers = [
 ]
 requires-python = ">=3.10,<3.12"
 dependencies = [
+    "connectors_sdk",
+    "motor"
+]
+
+[project.optional-dependencies]
+dev = [
     "ruff>=0.6.1",
+    "pytest"
 ]
 
 [project.urls]
@@ -28,5 +35,5 @@ build-backend = "hatchling.build"
 dev-mode-dirs = ["src"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/connectors"]
+packages = ["src/elastic_connectors"]
 sources = ["src"]
