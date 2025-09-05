@@ -1,5 +1,5 @@
 import json
-from connectors_sdk.utils import create_connector
+from connectors_sdk.utils import create_connector, get_connector_configuration
 import click
 
 known_connector_types = [
@@ -35,7 +35,24 @@ def run(connector_type):
 
 
     click.echo(f"Running connector: {connector_type}")
-    connector = create_connector(connector_type, {})
+    connector_config = get_connector_configuration(connector_type)
+
+    config = {}
+
+    for key, config_entry in connector_config.items():
+        label = config_entry.get('label', key)
+        default_value = config_entry.get('default_value')
+
+        user_value = click.prompt(
+            f"{click.style('?', fg='green')} {label}",
+            default=default_value
+        )
+
+        config[key] = user_value
+
+
+
+    connector = create_connector(connector_type, config)
 
     for doc in connector.get_docs():
         print(json.dumps(doc, indent=4))

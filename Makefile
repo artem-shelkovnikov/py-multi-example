@@ -23,7 +23,8 @@ agent: .venv
 cli: .venv
 	.venv/bin/connectors_cli run
 
-service: 
+service: .venv
 	.venv/bin/connectors_service
 
-run: agent cli service
+script: .venv
+	uv run apps/just_a_script/script.py

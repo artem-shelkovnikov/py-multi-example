@@ -8,6 +8,7 @@ class ExternalContributionConnector(BaseConnector):
     def get_default_configuration(cls):
         return {
             "uri": {
+                "label": "Url to fetch",
                 "default_value": "https://www.elastic.co",
                 "description": "Path to the directory that will be used to sync files from"
             }
@@ -20,6 +21,7 @@ class ExternalContributionConnector(BaseConnector):
         r = requests.get(uri)
 
         yield {
+            "id": uri,
             "headers": dict(r.headers),
-            "text": BeautifulSoup(r.text).get_text()
+            "text": BeautifulSoup(r.text, features="html.parser").get_text()
         }
